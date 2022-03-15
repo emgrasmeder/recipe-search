@@ -1,36 +1,16 @@
 # recipe-search
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+Find a recipe based on your search terms
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar recipe-search-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
+    $ java -jar recipe-search-0.1.0-standalone.jar
 
 ## Examples
 
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
 ## License
 
-Copyright © 2022 FIXME
+Copyright © 2022 Em Grasmeder
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
