@@ -13,18 +13,41 @@
   (map #(str recipes-directory "/" %) (seq (.list (io/file recipes-directory)))))
 
 
-(defn get-recipe [file])
+(defn capitalize-words 
+  "Capitalize every word in a string"
+  [s]
+  (->> (clojure.string/split (str s) #"\b") 
+       (map clojure.string/capitalize)
+       clojure.string/join))
+
+(defn parse-recipe-name
+  [filename]
+  (-> filename
+      io/file
+      .getName
+      (clojure.string/split #"\.txt")
+      first
+      (clojure.string/replace "-" " ")
+      capitalize-words))
+
+(defn save-recipe [search-string filename]
+  (let [recipe (slurp filename)]
+    (if (contains-substring? recipe search-string)
+      {:title (parse-recipe-name filename) :recipe recipe})))
+
 
 
 
 (defn do-search
-  "Here's the meat"
   ([search-string] (do-search search-string 10))
   ([search-string n]
    {:search-term search-string
     :num-results n
-    :results     (take n (filter #(contains-substring? (slurp %) search-string) all-files))}))
-
+    :results (->> all-files 
+                  (pmap (partial save-recipe search-string))
+                  (filter identity)
+                  (take 10))}))
+     
 
 
 (defn -main

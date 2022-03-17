@@ -6,5 +6,6 @@
   :dependencies [[org.clojure/clojure "1.10.3"]]
   :main ^:skip-aot recipe-search.core
   :target-path "target/%s"
+  :plugins [[cider/cider-nrepl "0.24.0"]]
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})
