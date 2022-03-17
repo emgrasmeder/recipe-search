@@ -21,3 +21,13 @@
 (t/deftest do-search-test
   (t/testing "should find that the word 'pan' exists in our recipe book, sort of an end to end test"
     (t/is (not (empty? (rs-core/do-search "pan"))))))
+
+(t/deftest result-format-test
+  (t/testing "should return a map ready for use in the frontend"
+    (let [results (rs-core/do-search "tomato")]
+      (t/is (= (:search-term results) "tomato"))
+      (t/is (= (:num-results results) 10))
+      (t/is (= (count (:results results)) 10))))
+  (t/testing "should return a list of results with the correct format"
+    (let [results (:results (rs-core/do-search "tomato"))]
+      (t/is (= [:title :recipe] (keys (first results)))))))
