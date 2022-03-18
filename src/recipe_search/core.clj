@@ -12,20 +12,25 @@
   (s/includes? haystack needle))
 
 
-
-
 (defn optionally-save-recipe [search-string filename]
   (let [recipe (slurp filename)]
     (if (contains-substring? recipe search-string)
       {:title (rs-utils/parse-recipe-name filename) :recipe recipe})))
 
+(defn search-vectorized-contents 
+  "Ideally it should be trivial to search for a vectorized search term across vectorized recipes
+  I didn't save the vectorized-recipes in the correct format to make that happen
+  and the way it works now, I think loading the vectorized recipes takes even longer than just loading the strings!"
+  [search-string]
+ (->> (io/file (io/resource "preprocessing/vectorized-recipes.edn")) 
+      slurp
+      (fn [thing] (print "and this is basically where I gave up"))))
 
 (defn search-contents [search-string]
  (->> rs-utils/all-files 
       (pmap (partial optionally-save-recipe search-string))
       (filter identity)
       (take 10))) 
-
 
 
 (defn check-if-title-contains-string [search-string title-map]
@@ -44,9 +49,6 @@
       (filter identity)
       (take 10)))
       
-  
-
- 
 
 (defn collate-recipes 
   [search-string n]
