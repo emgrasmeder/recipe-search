@@ -96,5 +96,8 @@
   (let [input (read-line)]
     (run! println (do-search "thai" 10))))
 
+(comment
+ (do-search "tomato soup" 10))
+
 
 
