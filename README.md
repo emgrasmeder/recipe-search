@@ -4,9 +4,25 @@ Find a recipe based on your search terms
 
 ## Usage
 
-    $ java -jar recipe-search-0.1.0-standalone.jar
+### Setup
+There's a little bit of preprocessing to do, this can be accomplished by running:
 
-## Examples
+`lein run setup`
+
+### Running
+To interface with the simple CLI, you run:
+
+`lein run`
+
+Type in a search term, and push enter. That's it.
+
+
+## Discussion
+
+I don't think a CLI is the right tool for this, so although I would usually make a CLI tool with an interface like:
+`echo "tomato soup" | bb search.clj`, but since time is one of the explicit things we're optimizing for, neither babashka nor a process that needs to start up each time is appropriate.
+Ideally, instead, the `do-search` function would be triggered by an API request and the process would already be alive. 
+
 
 ## License
 
