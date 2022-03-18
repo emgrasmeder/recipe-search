@@ -2,6 +2,10 @@
 
 Find a recipe based on your search terms
 
+## Requirements
+
+This project is set up with [leiningen](https://leiningen.org/) and since I ran out of time, I didn't figure out how to run `java -jar`, so I think you can't get around having to use lein.
+
 ## Usage
 
 ### Setup
@@ -23,6 +27,7 @@ I don't think a CLI is the right tool for this, so although I would usually make
 `echo "tomato soup" | bb search.clj`, but since time is one of the explicit things we're optimizing for, neither babashka nor a process that needs to start up each time is appropriate.
 Ideally, instead, the `do-search` function would be triggered by an API request and the process would already be alive. 
 
+I started working with TDD, but about when I hit the 6 hour mark, I decided to try to sprint for some finish line and abandoned them. The tests are broken because they didn't keep up with refactors I was making. 
 
 ## License
 
