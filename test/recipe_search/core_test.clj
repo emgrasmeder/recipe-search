@@ -1,6 +1,7 @@
 (ns recipe-search.core-test
   (:require [clojure.test :as t]
             [recipe-search.core :as rs-core]
+            [recipe-search.utils :as rs-utils]
             [clojure.java.io :as io]
             [test-with-files.tools :refer [with-tmp-dir]]))
 
@@ -12,7 +13,7 @@
 
 (t/deftest contains-substring-test
   (t/testing "should find a word we knows exists in a file to be in that file"
-    (let [filestring (slurp (str rs-core/recipes-directory "/" "parsnip-mash.txt"))
+    (let [filestring (slurp (str rs-utils/recipes-directory "/" "parsnip-mash.txt"))
           should-be-true (rs-core/contains-substring? filestring "water")]
       (t/is should-be-true))))
 
