@@ -43,5 +43,48 @@
       (spit (io/file tmp-dir "titles.edn") [{:title title :file-location (rs-core/convert-pretty-title-to-filename title tmp-dir)}])
       (slurp (io/file tmp-dir "titles.edn"))))))
 
-    
 
+(defn setup-dummy-files
+  [dir]
+  (let [recipes [{:name "something with tomato" 
+                  :content "buy tomato and do something with tomato"}
+                 {:name "water"
+                  :content "it's literally just water"}
+                 {:name "pizza sauce"
+                  :content "pizza sauce needs both tomato and water"}]]
+   (run! (fn [a] (spit (io/file (rs-core/convert-pretty-title-to-filename (:name a) dir))
+                       (:content a)))
+         recipes)))
+
+
+(t/deftest setup-dummy-files-test
+  (t/testing "should write the files to tmp dir"
+   (with-tmp-dir tmp-dir
+     (setup-dummy-files tmp-dir)
+     (t/is (= (slurp (io/file tmp-dir "pizza-sauce.txt")) "pizza sauce needs both tomato and water")))))
+
+(comment (run! (fn [recipe] (spit (io/file (dir rs-core/convert-pretty-title-to-filename (str (:name recipe) ".txt"))) 
+                                  (:content recipe)))
+              recipes)
+
+ (comment
+   (with-tmp-dir tmp-dir
+     (run! (fn [a] (spit (io/file tmp-dir a) "hello world")) ["titles.edn"])
+     (slurp (io/file tmp-dir "titles.edn")))))
+
+  
+  
+
+(t/deftest collate-recipes-test
+  (t/testing "should search recipe titles and contents and return a single collection"
+   (with-tmp-dir tmp-dir
+    (setup-dummy-files "tmp-dir")
+    (slurp (str tmp-dir "/water.txt"))
+
+
+    (let [recipes []]))))
+
+(comment
+ (with-tmp-dir tmp-dir)
+ (setup-dummy-files tmp-dir)
+ (slurp (str tmp-dir "/water")))
